@@ -12,7 +12,7 @@
 
 ## About The Project
 
-***Dll-Injector*** is a **Windows Dynamic Link Library** injection tool written in *C++20*. It can inject a `.dll` file into a running process by searching its window title or create a new process with an injection.
+***Dll-Injector*** is a **Windows dynamic-link library** injection tool written in *C++20*. It can inject a `.dll` file into a running process by searching its window title or create a new process with an injection.
 
 ## Getting Started
 
@@ -28,7 +28,7 @@ The project need to configure on/for **Windows 32-bit**.
 
 ## Usage
 
-```
+```console
 Dll-Injector [-f <proc-path> | <win-title>] <dll-path>
 ```
 
@@ -36,27 +36,27 @@ Dll-Injector [-f <proc-path> | <win-title>] <dll-path>
 
 To inject a `.dll` file into a running process, you need to specify the *window title* of the target process and the *path* of the `.dll` file. If `dll-path` is a relative path, it must be relative to the `Dll-Injector.exe`.
 
-```bash
+```console
 Dll-Injector <win-title> <dll-path>
 ```
 
 For example, inject the `dllmain_msg.dll` (assume it is in the same directory as *Dll-Injector*) into *Windows Calculator*:
 
-```bash
+```console
 Dll-Injector Calculator dllmain_msg.dll
 ```
 
 **Create a New Process with an Injection**
 
-To create a new process with an injection, you must enable the `-f` option firstly and then specify the *paths* of the target process and `.dll` files. If `dll-path` is a relative path, it must be relative to the process file.
+To create a new process with an injection, you must enable the `-f` option firstly and then specify the *paths* of the target process and the `.dll` file. If `dll-path` is a relative path, it must be relative to the process file.
 
-```bash
+```console
 Dll-Injector -f <proc-path> <dll-path>
 ```
 
 ## Documents
 
-You can use [*Doxygen*](http://www.doxygen.nl/) to generate the document.
+You can use [*Doxygen*](http://www.doxygen.nl) to generate the document.
 
 In order to avoid scanning `.md` files, you must add `*.md` to the `EXCLUDE_PATTERNS` configuration option.
 
@@ -68,11 +68,11 @@ This option is in "***Expert***" -> "***Input***" page.
 
 ## License
 
-Distributed under the *GNU General Public* License. See `LICENSE` for more information.
+Distributed under the *GNU General Public License*. See `LICENSE` for more information.
 
 ## Contact
 
-***GitHub***: https://github.com/czs108/
+***GitHub***: https://github.com/czs108
 
 ***E-Mail***: chenzs108@outlook.com
 

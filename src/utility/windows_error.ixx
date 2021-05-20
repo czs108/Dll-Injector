@@ -6,9 +6,9 @@
  * @version 1.0
  * @date 2020-10-09
  * @par GitHub
- * https://github.com/czs108/
+ * https://github.com/czs108
  *
- * @see https://docs.microsoft.com/en-us/windows/win32/debug/system-error-codes/
+ * @see https://docs.microsoft.com/en-us/windows/win32/debug/system-error-codes
  */
 
 module;

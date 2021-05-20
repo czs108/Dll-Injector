@@ -28,7 +28,7 @@
 
 ## 使用
 
-```
+```console
 Dll-Injector [-f <proc-path> | <win-title>] <dll-path>
 ```
 
@@ -36,13 +36,13 @@ Dll-Injector [-f <proc-path> | <win-title>] <dll-path>
 
 对运行中的进程进行注入时，需要指定目标进程的*窗口标题*和`.dll`文件的*路径*。如果`dll-path`参数是一个相对路径，则其必须相对于`Dll-Injector.exe`文件。
 
-```bash
+```console
 Dll-Injector <win-title> <dll-path>
 ```
 
 例如，将`dllmain_msg.dll`（假定其位于*Dll-Injector*目录）注入*Windows Calculator*进程：
 
-```bash
+```console
 Dll-Injector Calculator dllmain_msg.dll
 ```
 
@@ -50,13 +50,13 @@ Dll-Injector Calculator dllmain_msg.dll
 
 若需要在创建新进程时进行注入，必须先设置`-f`选项，然后再指定目标进程和`.dll`文件的*路径*。如果`dll-path`参数是一个相对路径，则其必须相对于进程文件。
 
-```bash
+```console
 Dll-Injector -f <proc-path> <dll-path>
 ```
 
 ## 文档
 
-可以使用[*Doxygen*](http://www.doxygen.nl/)生成项目文档。
+可以使用[*Doxygen*](http://www.doxygen.nl)生成项目文档。
 
 为了避免扫描`.md`文件，必须将`*.md`添加至`EXCLUDE_PATTERNS`配置选项。
 
@@ -72,7 +72,7 @@ EXCLUDE_PATTERNS = *.md
 
 ## 作者
 
-***GitHub***：https://github.com/czs108/
+***GitHub***：https://github.com/czs108
 
 ***E-Mail***：chenzs108@outlook.com
 
