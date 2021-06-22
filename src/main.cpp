@@ -20,6 +20,7 @@ import utility.windows_error;
 #include <string>
 #include <string_view>
 #include <vector>
+#include <algorithm>
 
 #include <cassert>
 
@@ -42,7 +43,7 @@ void PrintHelp() noexcept;
 int main(int argc, char* argv[]) {
     assert(argc >= 0);
 
-    const auto args = GetCmdLineArguments(static_cast<std::size_t>(argc), argv);
+    const auto args{ GetCmdLineArguments(static_cast<std::size_t>(argc), argv) };
 
     if (args.size() != 3 && args.size() != 4) {
         PrintHelp();
@@ -96,11 +97,8 @@ namespace {
 
 std::vector<std::string> GetCmdLineArguments(
     const std::size_t argc, const char* const argv[]) noexcept {
-    std::vector<std::string> args{ argc };
-    for (auto i = 0; i != argc; i++) {
-        args[i] = argv[i];
-    }
-
+    std::vector<std::string> args{};
+    std::ranges::copy_n(argv, argc, std::back_inserter(args));
     return args;
 }
 

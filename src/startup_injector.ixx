@@ -111,13 +111,13 @@ StartupInjector::StartupInjector(const std::string_view proc_path,
 void StartupInjector::Inject() {
     assert(!proc_path_.empty() && !dll_path_.empty());
 
-    auto proc_terminator = [](PROCESS_INFORMATION* const proc) noexcept {
+    auto proc_terminator{ [](PROCESS_INFORMATION* const proc) noexcept {
         assert(proc != nullptr);
 
         ::Terminate(proc);
         CloseHandles(proc);
         delete proc;
-    };
+    } };
 
     std::unique_ptr<PROCESS_INFORMATION, decltype(proc_terminator)> proc{
         new PROCESS_INFORMATION{}, proc_terminator
@@ -137,12 +137,12 @@ void StartupInjector::Inject() {
         ThrowLastError();
     }
 
-    auto proc_closer = [](PROCESS_INFORMATION* const proc) noexcept {
+    auto proc_closer{ [](PROCESS_INFORMATION* const proc) noexcept {
         assert(proc != nullptr);
 
         CloseHandles(proc);
         delete proc;
-    };
+    } };
 
     proc_ = { proc.release(), proc_closer };
 }

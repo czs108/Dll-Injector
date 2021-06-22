@@ -95,7 +95,7 @@ RunningInjector::RunningInjector(const std::string_view win_title,
 void RunningInjector::Inject() {
     assert(!win_title_.empty() && !dll_path_.empty());
 
-    const auto proc = GetProcessHandle(win_title_);
+    const auto proc{ GetProcessHandle(win_title_) };
     if (proc == nullptr) {
         ThrowLastError();
     }
@@ -108,8 +108,8 @@ std::string GetFullFilePath(const std::string_view path) {
     assert(!path.empty());
 
     char full_path[MAX_PATH]{};
-    if (const auto length =
-            GetFullPathNameA(path.data(), MAX_PATH, full_path, nullptr);
+    if (const auto length{
+            GetFullPathNameA(path.data(), MAX_PATH, full_path, nullptr) };
         length == 0) {
         ThrowLastError();
     }
@@ -122,12 +122,12 @@ std::unique_ptr<HANDLE, HandleCloser> GetProcessHandle(
     const std::string_view win_title) {
     assert(!win_title.empty());
 
-    const auto win = FindWindowA(nullptr, win_title.data());
+    const auto win{ FindWindowA(nullptr, win_title.data()) };
     if (win == nullptr) {
         ThrowLastError();
     }
 
-    DWORD pid = 0;
+    DWORD pid{ 0 };
     GetWindowThreadProcessId(win, &pid);
 
     std::unique_ptr<HANDLE, HandleCloser> proc{ new HANDLE{ nullptr },

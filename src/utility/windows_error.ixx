@@ -113,11 +113,11 @@ const char* WindowsError::what() const noexcept {
 
 std::string FormatErrMsg(const int err_code) {
     char* raw_msg{ nullptr };
-    if (const auto length = FormatMessageA(
+    if (const auto length{ FormatMessageA(
             FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM
                 | FORMAT_MESSAGE_IGNORE_INSERTS,
             nullptr, err_code, MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US),
-            reinterpret_cast<char*>(&raw_msg), 0, nullptr);
+            reinterpret_cast<char*>(&raw_msg), 0, nullptr) };
         length == 0) {
         ThrowLastError();
     }

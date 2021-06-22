@@ -30,23 +30,23 @@ export using HandleCloser = std::function<void(HANDLE*)>;
 /**
  * A default function for closing a handle.
  */
-export HandleCloser default_handle_closer = [](HANDLE* const handle) noexcept {
+export HandleCloser default_handle_closer{ [](HANDLE* const handle) noexcept {
     assert(handle != nullptr);
 
     if (*handle != nullptr) {
         CloseHandle(*handle);
     }
-};
+} };
 
 /**
  * A default function for closing a handle and deleting its memory.
  */
-export HandleCloser default_handle_deleter = [](HANDLE* const handle) noexcept {
+export HandleCloser default_handle_deleter{ [](HANDLE* const handle) noexcept {
     assert(handle != nullptr);
 
     default_handle_closer(handle);
     delete handle;
-};
+} };
 
 /**
  * Allocate memory within a process.
@@ -76,8 +76,8 @@ void* AllocRemoteMemory(const HANDLE proc, const std::size_t size) {
     assert(size != 0);
 
     // The memory cannot be deleted. Otherwise, the target process might crash.
-    if (const auto buffer = VirtualAllocEx(
-            proc, nullptr, size, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+    if (const auto buffer{ VirtualAllocEx(
+            proc, nullptr, size, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE) };
         buffer == nullptr) {
         ThrowLastError();
     } else {
@@ -92,19 +92,19 @@ void CreateRemoteInjectThread(const HANDLE proc,
     assert(proc != nullptr);
     assert(!dll_path.empty());
 
-    const auto dll_path_size = dll_path.length() + 1;
-    const auto buffer = AllocRemoteMemory(proc, dll_path_size);
+    const auto dll_path_size{ dll_path.length() + 1 };
+    const auto buffer{ AllocRemoteMemory(proc, dll_path_size) };
     if (!WriteProcessMemory(proc, buffer, dll_path.data(), dll_path_size,
                             nullptr)) {
         ThrowLastError();
     }
 
-    const auto kernel32 = GetModuleHandleA("kernel32.dll");
+    const auto kernel32{ GetModuleHandleA("kernel32.dll") };
     if (kernel32 == nullptr) {
         ThrowLastError();
     }
 
-    const auto load_library = GetProcAddress(kernel32, "LoadLibraryA");
+    const auto load_library{ GetProcAddress(kernel32, "LoadLibraryA") };
     if (load_library == nullptr) {
         ThrowLastError();
     }
